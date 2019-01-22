@@ -2,9 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface Powerups
+public class Powerups : MonoBehaviour
 {
-    void effect();
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
 
-    void timedEffect(int time);
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
 }
