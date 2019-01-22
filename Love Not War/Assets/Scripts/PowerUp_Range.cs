@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PowerUp_Speed : MonoBehaviour, Powerups
+public class PowerUp_Range : MonoBehaviour, Powerups
 {
     public float increaseAmount;
     public float expirationTime;
@@ -13,12 +13,12 @@ public class PowerUp_Speed : MonoBehaviour, Powerups
     //Interface implementation--------------------//
     public void effect()
     {
-        FindObjectOfType<Player>().speed += increaseAmount;
+        FindObjectOfType<Player>().GetComponentInChildren<Beam>().GetComponent<SphereCollider>().radius += increaseAmount;
     }
 
     public void expire()
     {
-        FindObjectOfType<Player>().speed -= increaseAmount;
+        FindObjectOfType<Player>().GetComponentInChildren<Beam>().gameObject.GetComponent<SphereCollider>().radius -= increaseAmount;
         Destroy(this.gameObject);
     }
     //-------------------------------------------//
@@ -28,9 +28,9 @@ public class PowerUp_Speed : MonoBehaviour, Powerups
         if (isInEffect && timer < expirationTime)
         {
             timer += Time.deltaTime;
-            //Debug.Log(timer);
+            Debug.Log(timer);
         }
-        else if(isInEffect && timer >= expirationTime)
+        else if (isInEffect && timer >= expirationTime)
         {
             isInEffect = false;
             timer = 0.0f;
@@ -45,7 +45,6 @@ public class PowerUp_Speed : MonoBehaviour, Powerups
             this.effect();
             GetComponent<Renderer>().enabled = false;
             isInEffect = true;
-            //Destroy(this.gameObject);
         }
     }
 
