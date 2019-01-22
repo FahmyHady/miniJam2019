@@ -9,10 +9,12 @@ public class Enemy : MonoBehaviour
     public Material material;
     Renderer myrender;
     Animator animator;
-    internal float wait;
+   public GameObject bullet;
     internal bool canShoot;
     internal bool inFiringRange;
     internal GameObject  player;
+    private float timeBtwShots;
+    public float startTimeBtwShots;
     Rigidbody mybody;
     bool hitWall;
     void onTransform()
@@ -41,7 +43,21 @@ public class Enemy : MonoBehaviour
 
     }
     void Shoot()
-    { Instantiate(new Bullet(),transform); }
+    {
+
+        if (timeBtwShots <= 0)
+        {
+
+            Instantiate(bullet, transform.position, Quaternion.identity);
+            timeBtwShots = startTimeBtwShots;
+
+        }
+        else
+        {
+            timeBtwShots -= Time.deltaTime;
+        }
+    }
+
     internal void playerDetected()
     {
         mybody.velocity = Vector3.zero;
@@ -60,9 +76,9 @@ public class Enemy : MonoBehaviour
         transform.Rotate(0, 90,0);
         hitWall = false;
     }
+
     void Start()
     {
-        wait = 0;
         animator = GetComponent<Animator>();
         myrender = gameObject.GetComponent<Renderer>();
         Speed = 10;
@@ -77,7 +93,7 @@ public class Enemy : MonoBehaviour
         {
          
                 playerDetected();
-          
+            Debug.Log(inFiringRange);
         }
         else
         {

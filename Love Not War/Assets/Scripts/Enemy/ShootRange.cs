@@ -9,7 +9,7 @@ public class ShootRange : MonoBehaviour
     {
         me = GetComponentInParent<Enemy>();
     }
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (other.tag == "Player")
         {
@@ -19,6 +19,6 @@ public class ShootRange : MonoBehaviour
     }
     private void OnTriggerExit(Collider other)
     {
-        me.inFiringRange = false;
+      me.inFiringRange = false;
     }
 }
