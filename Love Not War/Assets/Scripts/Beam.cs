@@ -5,14 +5,14 @@ using UnityEngine;
 public class Beam : MonoBehaviour
 {
     static public float range;
-    public int holdTime;
+    public int holdTime; //Max key holding time
     float timer;
     public KeyCode fireBtn;
-    public string enemyTagName;
+    public string enemyTagName; //Enemy tag
 
     void Start()
     {
-        timer = 0.0f;
+        timer = 0.0f; //init val
     }
 
     private void OnTriggerStay(Collider other)
@@ -22,11 +22,10 @@ public class Beam : MonoBehaviour
             var enemyWeapon = other.gameObject.GetComponentInChildren<EnemyWeapon>();
 
             if (Input.GetKeyUp(fireBtn))
-            {
+            { //
                 timer = 0;
                 if (enemyWeapon)
                     enemyWeapon.returnToOrigin();
-
             }
 
             if (Input.GetKey(fireBtn))
