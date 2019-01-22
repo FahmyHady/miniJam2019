@@ -11,7 +11,7 @@ public class PowerUp_Health : MonoBehaviour, Powerups
     public void effect()
     {
         //TEMP_PLAYER.hp += amount;
-        Player.hp += amount;
+        GetComponent<Player>().hp += amount;
     }
 
     public void expire()
