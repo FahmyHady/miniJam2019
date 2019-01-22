@@ -128,7 +128,6 @@ GameObject:
   - component: {fileID: 5804506044162183778}
   - component: {fileID: 6655371715343218418}
   - component: {fileID: 5822465491177346178}
-  - component: {fileID: 582032901}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -241,18 +240,3 @@ MonoBehaviour:
   chaseSpeed: 0
   Speed: 0
   material: {fileID: 0}
---- !u!111 &582032901
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3806900830641693752}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 1782f640f3e12d04c9a1a08859e0db0b, type: 2}
-  m_Animations: []
-  m_WrapMode: 0
-  m_PlayAutomatically: 0
-  m_AnimatePhysics: 0
-  m_CullingType: 0

@@ -14,6 +14,7 @@ public class DetectRange : MonoBehaviour
         if (other.tag=="Player")
         {
             me.player=other.gameObject;
+
         }
     }
     private void OnTriggerExit(Collider other)

@@ -8,8 +8,8 @@ public class Enemy : MonoBehaviour
     public float Speed;
     public Material material;
     Renderer myrender;
-    Animation surprised;
-
+    Animator animator;
+    internal float wait;
     internal bool canShoot;
     internal bool inFiringRange;
     internal GameObject  player;
@@ -62,7 +62,8 @@ public class Enemy : MonoBehaviour
     }
     void Start()
     {
-        surprised = GetComponent<Animation>();
+        wait = 0;
+        animator = GetComponent<Animator>();
         myrender = gameObject.GetComponent<Renderer>();
         Speed = 10;
         chaseSpeed = 0.1f;
@@ -74,10 +75,13 @@ public class Enemy : MonoBehaviour
     {
         if (player)
         {
-            playerDetected();
+         
+                playerDetected();
+          
         }
         else
-        { mybody.velocity = mybody.transform.forward * Speed;
+        {
+            mybody.velocity = mybody.transform.forward * Speed;
         }
         if (hitWall)
         {
