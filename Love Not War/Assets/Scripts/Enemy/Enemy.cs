@@ -6,12 +6,12 @@ public class Enemy : MonoBehaviour
 {
     public float chaseSpeed;
     public float Speed;
-    public Material material;
+    public bool Patrol;
     Renderer myrender;
     Animator animator;
    public GameObject bullet;
     public GameObject Hippy;
-
+    AudioSource shooting;
     internal bool canShoot;
     internal bool inFiringRange;
     EnemyWeapon enemyWeapon;
@@ -21,7 +21,7 @@ public class Enemy : MonoBehaviour
     public float startTimeBtwShots;
     Rigidbody mybody;
     bool hitWall;
-    void onTransform()
+    internal void onTransform()
     {
 
         Instantiate(Hippy, transform.position,transform.rotation);
@@ -54,6 +54,7 @@ public class Enemy : MonoBehaviour
         {
 
             Instantiate(bullet, transform.position, Quaternion.identity);
+            shooting.Play();
             timeBtwShots = startTimeBtwShots;
 
         }
@@ -88,14 +89,12 @@ public class Enemy : MonoBehaviour
 
     void Start()
     {
+        shooting = GetComponent<AudioSource>();
         enemyWeapon = GetComponentInChildren<EnemyWeapon>();
 
-        animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
         myrender = gameObject.GetComponent<Renderer>();
-        Speed = 10;
-        chaseSpeed = 0.1f;
         mybody = gameObject.GetComponent<Rigidbody>();
-       mybody.velocity = mybody.transform.forward*Speed;
     }
 
     void Update()
@@ -108,8 +107,12 @@ public class Enemy : MonoBehaviour
         }
         else
         {
-            mybody.velocity = mybody.transform.forward * Speed;
-            animator.SetBool("Speed", true);
+            if (Patrol==true)
+            {
+                mybody.velocity = mybody.transform.forward * Speed;
+                animator.SetBool("Speed", true);
+            }
+           
         }
         if (hitWall)
         {

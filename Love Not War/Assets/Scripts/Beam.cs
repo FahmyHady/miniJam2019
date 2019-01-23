@@ -10,6 +10,7 @@ public class Beam : MonoBehaviour
     public KeyCode fireBtn;
     public string enemyTagName; //Enemy tag
     EnemyWeapon enemyWeapon;
+     public Enemy enemy;
     void Start()
     {
         timer = 0.0f; //init val
@@ -43,7 +44,11 @@ public class Beam : MonoBehaviour
                 else if (timer >= holdTime)
                 {
                     if (enemyWeapon)
+                    {
+                        enemy = other.gameObject.GetComponentInParent<Enemy>();
+                        enemy.onTransform();
                         Destroy(enemyWeapon.gameObject);
+                    }
                 }
             }
         }
