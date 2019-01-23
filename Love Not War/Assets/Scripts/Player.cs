@@ -7,9 +7,9 @@ public class Player : MonoBehaviour
     public float hp;
     public float speed=5f;
     public float Rotatespeed=100f;
-
+    private Animator anim;
     Vector3 YAxis, XAxis;
-    
+    Vector3 heading;
 
 
     void Start()
@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
         YAxis.y = 0;
         YAxis = Vector3.Normalize(YAxis);
         XAxis = Quaternion.Euler(new Vector3(0, 90, 0)) * YAxis;
+        anim = GetComponentInChildren<Animator>();
     }
 
     // Update is called once per frame
@@ -25,6 +26,7 @@ public class Player : MonoBehaviour
     {
             Move();
     }
+    
     void Move()
     {
         ///Movement01
@@ -34,10 +36,15 @@ public class Player : MonoBehaviour
             Vector3 xMovement = XAxis * speed * Time.deltaTime * Input.GetAxis("Horizontal");
             Vector3 YMovement = YAxis * speed * Time.deltaTime * Input.GetAxis("Vertical");
 
-            Vector3 heading = Vector3.Normalize(xMovement + YMovement);
+            heading = Vector3.Normalize(xMovement + YMovement);
             transform.forward = heading;
             transform.position += xMovement;
             transform.position += YMovement;
+            anim.SetBool("Speed", true);
+        }
+        else
+        {
+            anim.SetBool("Speed", false);
         }
 
         

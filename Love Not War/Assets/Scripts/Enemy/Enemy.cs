@@ -8,9 +8,10 @@ public class Enemy : MonoBehaviour
     public float Speed;
     public Material material;
     Renderer myrender;
-    Mesh mymesh;
     Animator animator;
    public GameObject bullet;
+    public GameObject Hippy;
+
     internal bool canShoot;
     internal bool inFiringRange;
     EnemyWeapon enemyWeapon;
@@ -22,9 +23,9 @@ public class Enemy : MonoBehaviour
     bool hitWall;
     void onTransform()
     {
-        
-        myrender.material = material;
-        
+
+        Instantiate(Hippy, transform.position,transform.rotation);
+        Destroy(gameObject);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -67,10 +68,14 @@ public class Enemy : MonoBehaviour
         mybody.velocity = Vector3.zero;
         if (!inFiringRange)
         {
+            animator.SetBool("Speed", true);
+
             followPlayer();
         }
         else if (inFiringRange && !enemyWeapon.weaponPulled)
         {
+            animator.SetBool("Speed", false);
+
             Shoot();
         }
 
@@ -104,6 +109,7 @@ public class Enemy : MonoBehaviour
         else
         {
             mybody.velocity = mybody.transform.forward * Speed;
+            animator.SetBool("Speed", true);
         }
         if (hitWall)
         {

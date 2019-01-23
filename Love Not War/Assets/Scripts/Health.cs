@@ -9,15 +9,20 @@ public class Health : MonoBehaviour
     public float max_health = 100f;
     public float cur_health = 0f;
     public bool alive = true;
+   private Animator anim;
     // Start is called before the first frame update
     void Start()
     {
         alive = true;
         cur_health = max_health;
         SetHealthBar();
+        anim = GetComponentInChildren<Animator>();
     }
-    
 
+    public void FixedUpdate()
+    {
+        anim.SetBool("Alive", alive);
+    }
     public void TakeDamage(float damage)
     {
         if(!alive)
