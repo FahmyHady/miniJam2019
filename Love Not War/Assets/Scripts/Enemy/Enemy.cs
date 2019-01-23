@@ -8,10 +8,13 @@ public class Enemy : MonoBehaviour
     public float Speed;
     public Material material;
     Renderer myrender;
+    Mesh mymesh;
     Animator animator;
    public GameObject bullet;
     internal bool canShoot;
     internal bool inFiringRange;
+    EnemyWeapon enemyWeapon;
+
     internal GameObject  player;
     private float timeBtwShots;
     public float startTimeBtwShots;
@@ -19,8 +22,9 @@ public class Enemy : MonoBehaviour
     bool hitWall;
     void onTransform()
     {
-
+        
         myrender.material = material;
+        
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -65,7 +69,7 @@ public class Enemy : MonoBehaviour
         {
             followPlayer();
         }
-        else if (inFiringRange)
+        else if (inFiringRange && !enemyWeapon.weaponPulled)
         {
             Shoot();
         }
@@ -79,6 +83,8 @@ public class Enemy : MonoBehaviour
 
     void Start()
     {
+        enemyWeapon = GetComponentInChildren<EnemyWeapon>();
+
         animator = GetComponent<Animator>();
         myrender = gameObject.GetComponent<Renderer>();
         Speed = 10;
@@ -93,7 +99,7 @@ public class Enemy : MonoBehaviour
         {
          
                 playerDetected();
-            Debug.Log(inFiringRange);
+
         }
         else
         {

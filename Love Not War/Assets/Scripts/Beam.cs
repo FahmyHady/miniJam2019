@@ -9,20 +9,20 @@ public class Beam : MonoBehaviour
     float timer;
     public KeyCode fireBtn;
     public string enemyTagName; //Enemy tag
-
+    EnemyWeapon enemyWeapon;
     void Start()
     {
         timer = 0.0f; //init val
     }
-
+    
     private void OnTriggerStay(Collider other)
     {
         if (other.tag == enemyTagName)
         {
-            var enemyWeapon = other.gameObject.GetComponentInChildren<EnemyWeapon>();
+             enemyWeapon = other.gameObject.GetComponentInChildren<EnemyWeapon>();
 
             if (Input.GetKeyUp(fireBtn))
-            { //
+            { 
                 timer = 0;
                 if (enemyWeapon)
                     enemyWeapon.returnToOrigin();
@@ -35,6 +35,7 @@ public class Beam : MonoBehaviour
                     timer += Time.deltaTime;
                     if (enemyWeapon)
                     {
+                        enemyWeapon.weaponPulled = true;
                         var pullDirection = this.transform.position - enemyWeapon.gameObject.transform.position;
                         enemyWeapon.gameObject.GetComponent<Rigidbody>().position += pullDirection.normalized * 0.1f;
                     }
@@ -46,13 +47,13 @@ public class Beam : MonoBehaviour
                 }
             }
         }
-
+       
 
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (Input.GetKeyUp(fireBtn) && other.tag == enemyTagName)
+        if (other.tag == enemyTagName)
         {
             var enemyWeapon = other.gameObject.GetComponentInChildren<EnemyWeapon>();
             timer = 0;
