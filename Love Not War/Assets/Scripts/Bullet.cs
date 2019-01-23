@@ -5,7 +5,7 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public float speed;
-
+    public float damage;
 
     private Transform player;
     private Vector3 target;
@@ -26,8 +26,10 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+       
         if (other.CompareTag("Player"))
         {
+            other.gameObject.GetComponent<Health>().TakeDamage(damage);
             DestroyProjectile();
 
         }
