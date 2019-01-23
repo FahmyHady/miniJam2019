@@ -8,16 +8,27 @@ public class Health : MonoBehaviour
     public Image healthbar;
     public float max_health = 100f;
     public float cur_health = 0f;
-
+    public bool alive = true;
     // Start is called before the first frame update
     void Start()
     {
+        alive = true;
         cur_health = max_health;
         SetHealthBar();
     }
+    
 
     public void TakeDamage(float damage)
     {
+        if(!alive)
+        {
+            return;
+        }
+        if(cur_health<=0)
+        {
+            cur_health = 0;
+            alive = false;
+        }
         cur_health -= damage;
         SetHealthBar();
     }

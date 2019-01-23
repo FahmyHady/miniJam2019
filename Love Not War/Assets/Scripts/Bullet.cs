@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public float speed;
-    public float damage;
+    public float speed=200f;
+    public float damage=10f;
 
     private Transform player;
     private Vector3 target;
@@ -29,6 +29,7 @@ public class Bullet : MonoBehaviour
        
         if (other.CompareTag("Player"))
         {
+            damage = Mathf.Round(Random.Range(10f, 15f));
             other.gameObject.GetComponent<Health>().TakeDamage(damage);
             DestroyProjectile();
 
